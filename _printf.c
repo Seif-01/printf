@@ -3,11 +3,10 @@
 void print_buffer(char buffer[], int *buff_ind);
 
 /**
- * _print_f - Print formatted output
- * @format: Format string
- * Return: Number of characters printed
-*/
-
+ * _printf - Display function
+ * @format: Format.
+ * Return: Displayeded chars.
+ */
 int _printf(const char *format, ...)
 {
 	int i, printed = 0, printed_chars = 0;
@@ -20,25 +19,25 @@ int _printf(const char *format, ...)
 
 	va_start(list, format);
 
-	for (i = 0; format && format[i] != '\0'; i++)
+	for (a = 0; format && format[a] != '\0'; a++)
 	{
-		if (format[i] != '%')
+		if (format[a] != '%')
 		{
-			buffer[buff_ind++] = format[i];
+			buffer[buff_ind++] = format[a];
 			if (buff_ind == BUFF_SIZE)
 				print_buffer(buffer, &buff_ind);
-			/* write(1, &format[i], 1);*/
+			/* write(1, &format[a], 1);*/
 			printed_chars++;
 		}
 		else
 		{
 			print_buffer(buffer, &buff_ind);
-			flags = get_flags(format, &i);
-			width = get_width(format, &i, list);
+			flags = get_flags(format, &a);
+			width = get_width(format, &a, list);
 			precision = get_precision(format, &i, list);
-			size = get_size(format, &i);
-			++i;
-			printed = handle_print(format, &i, list, buffer,
+			size = get_size(format, &a);
+			++a;
+			printed = handle_print(format, &a, list, buffer,
 				flags, width, precision, size);
 			if (printed == -1)
 				return (-1);
@@ -54,11 +53,10 @@ int _printf(const char *format, ...)
 }
 
 /**
- * buffer_print - Print the contents of the buffer, if it is available
+ * print_buffer - Displays the contents of the buffer if it exist
  * @buffer: Array of characters
- * @buff_ind: Index indicating the position to add the next character, representing the length
-*/
-
+ * @buff_ind: Index at which to add next char, represents the length.
+ */
 void print_buffer(char buffer[], int *buff_ind)
 {
 	if (*buff_ind > 0)
@@ -66,4 +64,5 @@ void print_buffer(char buffer[], int *buff_ind)
 
 	*buff_ind = 0;
 }
+
 
