@@ -1,12 +1,12 @@
 #include "main.h"
 
-/************************* WRITE HANDLE *************************/
+/************************* FUNCTION : WRITE HANDLE *************************/
 /**
 * handle_write_char - Prints a string
 * @c: char types.
 * @buffer: Buffer array to handle print
 * @flags:  Calculates active flags.
-* @width: get width.
+* @width: width value.
 * @precision: precision specifier
 * @size: Size specifier
 *
@@ -44,14 +44,14 @@ write(1, &buffer[0], 1));
 return (write(1, &buffer[0], 1));
 }
 
-/************************* WRITE NUMBER *************************/
+/************************* FUNCTION : WRITE NUMBER *************************/
 /**
 * write_number - Prints a string
-* @is_negative: Lista of arguments
+* @is_negative: List a of arguments
 * @ind: char types.
 * @buffer: Buffer array to handle print
-* @flags:  Calculates active flags
-* @width: get width.
+* @flags: Calculates active flags
+* @width: Width value.
 * @precision: precision specifier
 * @size: Size specifier
 *
