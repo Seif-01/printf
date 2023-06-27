@@ -1,10 +1,9 @@
 #include "main.h"
-
 /**
- * handle_print_modified - Prints an argument based on its type
+ * handle_print - Prints an argument based on its type
  * @fmt: Formatted string in which to print the arguments.
- * @ind: ind.
  * @list: List of arguments to be printed.
+ * @ind: ind.
  * @buffer: Buffer array to handle print.
  * @flags: Calculates active flags
  * @width: get width.
@@ -12,7 +11,7 @@
  * @size: Size specifier
  * Return: 1 or 2;
  */
-int handle_print_modified(const char *fmt, int *ind, va_list list, char buffer[],
+int handle_print(const char *fmt, int *ind, va_list list, char buffer[],
 	int flags, int width, int precision, int size)
 {
 	int s, unknow_len = 0, printed_chars = -1;
@@ -47,11 +46,4 @@ int handle_print_modified(const char *fmt, int *ind, va_list list, char buffer[]
 		return (unknow_len);
 	}
 	return (printed_chars);
-}
-
-int main()
-{
-	// Your main function code here
-	
-	return 0;
 }
