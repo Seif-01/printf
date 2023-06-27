@@ -1,17 +1,16 @@
-
 #include "main.h"
 
 /************************* PRINT CHAR *************************/
 
 /**
- * print_char - Prints a char
- * @types: List a of arguments
+ * print_char - Prints a single character
+ * @ch: Character to be printed
  * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
- * @width: Width
+ * @flags: Active flags for formatting
+ * @width: Width specification
  * @precision: Precision specification
  * @size: Size specifier
- * Return: Number of chars printed
+ * Return: Number of characters printed
  */
 int print_char(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
