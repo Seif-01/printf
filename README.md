@@ -1,7 +1,6 @@
 # 0x11. C - printf team project
 
-## Peer Group: Yassin SIfar
-               Siham El hilali   
+## Peer Group: Yassin Sifar - Siham El hilali   
 
 Group Project:
 
