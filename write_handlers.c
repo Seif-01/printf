@@ -116,7 +116,6 @@ buffer[s] = '0' + ABS(buffer[s]);
 return (write(1, &buffer[ind], BUFF_SIZE - ind));
 }
 
-/************************* WRITE UNSGNED *************************/
 /**
 * write_unsgnd - Write an unsigned number
 * @is_negative: Number indicating if the number is negative.
@@ -137,7 +136,6 @@ return (write_num(ind, buffer, flags, width, precision,
 size, ' ', 0));
 }
 
-/************************* WRITE POINTER *************************/
 /**
 * write_pointer - Write a memory address
 * @buffer: Buffer
