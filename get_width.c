@@ -1,17 +1,19 @@
+#include "main.h"
+
 /**
  * get_width - Calculates the width for printing.
  * @frmt: Formatted string in which to print the arguments.
- * @s: List of arguments to be printed.
+ * @ji: List of arguments to be printed.
  * @l: List of arguments.
  *
  * Return: wid.
  */
-int get_width(const char *frmt, int *s, va_list l)
+int get_width(const char *frmt, int *ji, va_list l)
 {
 	int cur_i;
 	int wid = 0;
 
-	for (cur_i = *s + 1; frmt[cur_i] != '\0'; cur_i++)
+	for (cur_i = *ji + 1; frmt[cur_i] != '\0'; cur_i++)
 	{
 		if (is_digit(frmt[cur_i]))
 		{
@@ -28,7 +30,7 @@ int get_width(const char *frmt, int *s, va_list l)
 			break;
 	}
 
-	*s = cur_i - 1;
+	*ji = cur_i - 1;
 
 	return wid;
 }
