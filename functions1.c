@@ -1,55 +1,14 @@
 
 #include "main.h"
 
-
-
-/************************* PRINT NON PRINTABLE *************************/
-/**
-* print_non_printable - Prints ascii codes in hexa of non printable chars
-* @types: List a of arguments
-* @buffer: buffer array to handle print
-* @width: get width
-* @precision: precision specification
-* @flags: calculates active flags
-* @size: size specifier
-* Return: number of chars printed.
-*/
-int print_non_printable(va_list types, char buffer[],
-int flags, int width, int precision, int size)
-{
-int i = 0, offset = 0;
-char *str = va_arg(types, char *);
-
-UNUSED(flags);
-UNUSED(width);
-UNUSED(precision);
-UNUSED(size);
-
-if (str == NULL)
-return (write(1, "(null)", 6));
-
-while (str[i] != '\0')
-{
-if (is_printable(str[i]))
-buffer[i + offset] = str[i];
-else
-offset += append_hexa_code(str[i], buffer, i + offset);
-
-i++;
-}
-
-buffer[i + offset] = '\0';
-
-return (write(1, buffer, i + offset));
-}
 /****************** PRINT POINTER ******************/
 /**
 * print_pointer - Prints the value of a pointer variable
-* @types: List a of arguments
+* @types: list a of arguments
 * @buffer: buffer array to handle print
 * @width: get width
 * @precision: precision specification
-* @flags: calculates active flags
+* @flags:  calculates active flags
 * @size: size specifier
 * Return: number of chars printed.
 */
@@ -93,16 +52,57 @@ ind++;
 return (write_pointer(buffer, ind, length,
 width, flags, padd, extra_c, padd_start));
 }
-/************************* PRINT A STRING IN ROT13 *************************/
+
+/************************* PRINT NON PRINTABLE *************************/
 /**
-* print_rot13string - Print a string in rot13.
-* @types: List a of arguments
+* print_non_printable - Prints ascii codes in hexa of non printable chars
+* @types: lista of arguments
 * @buffer: buffer array to handle print
 * @width: get width
 * @precision: precision specification
-* @flags: calculates active flags
+* @flags:  calculates active flags
 * @size: size specifier
-* Return: number of chars printed.
+* Return: number of chars printed
+*/
+int print_non_printable(va_list types, char buffer[],
+int flags, int width, int precision, int size)
+{
+int i = 0, offset = 0;
+char *str = va_arg(types, char *);
+
+UNUSED(flags);
+UNUSED(width);
+UNUSED(precision);
+UNUSED(size);
+
+if (str == NULL)
+return (write(1, "(null)", 6));
+
+while (str[i] != '\0')
+{
+if (is_printable(str[i]))
+buffer[i + offset] = str[i];
+else
+offset += append_hexa_code(str[i], buffer, i + offset);
+
+i++;
+}
+
+buffer[i + offset] = '\0';
+
+return (write(1, buffer, i + offset));
+}
+
+/************************* PRINT A STRING IN ROT13 *************************/
+/**
+* print_rot13string - print a string in rot13.
+* @types: lista of arguments
+* @buffer: buffer array to handle print
+* @width: get width
+* @precision: precision specification
+* @flags:  calculates active flags
+* @size: size specifier
+* Return: numbers of chars printed
 */
 int print_rot13string(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
@@ -144,16 +144,17 @@ count++;
 }
 return (count);
 }
+
 /************************* PRINT REVERSE *************************/
 /**
-* print_reverse - Prints reverse string.
-* @types: List a of arguments
+* print_reverse - prints reverse string.
+* @types: lista of arguments
 * @buffer: buffer array to handle print
 * @width: get width
 * @precision: precision specification
-* @flags: calculates active flags
+* @flags:  calculates active flags
 * @size: size specifier
-* Return: number of chars printed.
+* Return: numbers of chars printed
 */
 
 int print_reverse(va_list types, char buffer[],
