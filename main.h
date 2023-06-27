@@ -43,7 +43,7 @@ int _printf(const char *format, ...);
 int handle_print(const char *fmt, int *i,
 va_list list, char buffer[], int flags, int width, int precision, int size);
 
-/****************** UTILS ******************/
+/****************** UTILS.c ******************/
 int is_printable(char);
 int append_hexa_code(char, char[], int);
 int is_digit(char);
@@ -52,7 +52,7 @@ long int convert_size_number(long int num, int size);
 long int convert_size_unsgnd(unsigned long int num, int size);
 
 
-/****************** FUNCTIONS ******************/
+/****************** FUNCTIONS012.c ******************/
 
 /* Funtions to print chars and strings */
 int print_char(va_list types, char buffer[],
