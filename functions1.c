@@ -1,4 +1,3 @@
-
 #include "main.h"
 
 /****************** PRINT POINTER ******************/
@@ -93,6 +92,51 @@ buffer[i + offset] = '\0';
 return (write(1, buffer, i + offset));
 }
 
+
+/************************* PRINT REVERSE *************************/
+/**
+* print_reverse - prints reverse string.
+* @types: lista of arguments
+* @buffer: buffer array to handle print
+* @width: get width
+* @precision: precision specification
+* @flags:  calculates active flags
+* @size: size specifier
+* Return: numbers of chars printed
+*/
+
+int print_reverse(va_list types, char buffer[],
+int flags, int width, int precision, int size)
+{
+char *str;
+int i, count = 0;
+
+UNUSED(buffer);
+UNUSED(flags);
+UNUSED(width);
+UNUSED(size);
+
+str = va_arg(types, char *);
+
+if (str == NULL)
+{
+UNUSED(precision);
+
+str = ")Null(";
+}
+for (i = 0; str[i]; i++)
+;
+
+for (i = i - 1; i >= 0; i--)
+{
+char z = str[i];
+
+write(1, &z, 1);
+count++;
+}
+return (count);
+}
+
 /************************* PRINT A STRING IN ROT13 *************************/
 /**
 * print_rot13string - print a string in rot13.
@@ -145,46 +189,3 @@ count++;
 return (count);
 }
 
-/************************* PRINT REVERSE *************************/
-/**
-* print_reverse - prints reverse string.
-* @types: lista of arguments
-* @buffer: buffer array to handle print
-* @width: get width
-* @precision: precision specification
-* @flags:  calculates active flags
-* @size: size specifier
-* Return: numbers of chars printed
-*/
-
-int print_reverse(va_list types, char buffer[],
-int flags, int width, int precision, int size)
-{
-char *str;
-int i, count = 0;
-
-UNUSED(buffer);
-UNUSED(flags);
-UNUSED(width);
-UNUSED(size);
-
-str = va_arg(types, char *);
-
-if (str == NULL)
-{
-UNUSED(precision);
-
-str = ")Null(";
-}
-for (i = 0; str[i]; i++)
-;
-
-for (i = i - 1; i >= 0; i--)
-{
-char z = str[i];
-
-write(1, &z, 1);
-count++;
-}
-return (count);
-}
