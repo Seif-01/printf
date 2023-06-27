@@ -2,186 +2,188 @@
 
 /****************** PRINT POINTER ******************/
 /**
- * print_pointer - Prints the value of a pointer variable
- * @types: List a of arguments
- * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
+ * print_pointer - prints the value of a pointer variable
+ * @types:  list a of arguments
+ * @buffer:  buffer array to handle print
  * @width: get width
- * @precision: Precision specification
- * @size: Size specifier
- * Return: Number of chars printed.
+ * @precision: precision specification
+ * @flags:  calculates active flags
+ * @size: size specifier
+ * Return: number of chars printed.
  */
 int print_pointer(va_list types, char buffer[],
-	int flags, int width, int precision, int size)
+    int flags, int width, int precision, int size)
 {
-	char extra_c = 0, padd = ' ';
-	int ind = BUFF_SIZE - 2, length = 2, padd_start = 1; /* length=2, for '0x' */
-	unsigned long num_addrs;
-	char map_to[] = "0123456789abcdef";
-	void *addrs = va_arg(types, void *);
+    char extra_c = 0, padd = ' ';
+    int ind = BUFF_SIZE - 2, length = 2, padd_start = 1; /* length=2, for '0x' */
+    unsigned long num_addrs;
+    char map_to[] = "0123456789abcdef";
+    void *addrs = va_arg(types, void *);
 
-	UNUSED(width);
-	UNUSED(size);
+    UNUSED(width);
+    UNUSED(size);
 
-	if (addrs == NULL)
-		return (write(1, "(nil)", 5));
+    if (addrs == NULL)
+        return (write(1, "(nil)", 5));
 
-	buffer[BUFF_SIZE - 1] = '\0';
-	UNUSED(precision);
+    buffer[BUFF_SIZE - 1] = '\0';
+    UNUSED(precision);
 
-	num_addrs = (unsigned long)addrs;
+    num_addrs = (unsigned long)addrs;
 
-	while (num_addrs > 0)
-	{
-		buffer[ind--] = map_to[num_addrs % 16];
-		num_addrs /= 16;
-		length++;
-	}
+    while (num_addrs > 0)
+    {
+        buffer[ind--] = map_to[num_addrs % 16];
+        num_addrs /= 16;
+        length++;
+    }
 
-	if ((flags & F_ZERO) && !(flags & F_MINUS))
-		padd = '0';
-	if (flags & F_PLUS)
-		extra_c = '+', length++;
-	else if (flags & F_SPACE)
-		extra_c = ' ', length++;
+    if ((flags & F_ZERO) && !(flags & F_MINUS))
+        padd = '0';
+    if (flags & F_PLUS)
+        extra_c = '+', length++;
+    else if (flags & F_SPACE)
+        extra_c = ' ', length++;
 
-	ind++;
+    ind++;
 
-	return (write_pointer(buffer, ind, length,
-		width, flags, padd, extra_c, padd_start));
+    return (write_pointer(buffer, ind, length,
+        width, flags, padd, extra_c, padd_start));
 }
 
 /************************* PRINT NON PRINTABLE *************************/
 /**
- * print_non_printable - Prints ascii codes in hexa of non printable chars
- * @types: Lista of arguments
- * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
+ * print_non_printable - Prints ASCII codes in hexa of non-printable chars
+ * @types:  list of arguments
+ * @buffer: buffer array to handle print
  * @width: get width
- * @precision: Precision specification
- * @size: Size specifier
- * Return: Number of chars printed
+ * @precision: precision specification
+ * @flags: calculates active flags
+ * @size: size specifier
+ * Return: number of chars printed
  */
 int print_non_printable(va_list types, char buffer[],
-	int flags, int width, int precision, int size)
+    int flags, int width, int precision, int size)
 {
-	int intt = 0, offset = 0;
-	char *str = va_arg(types, char *);
+    int s = 0, offset = 0;
+    char *str = va_arg(types, char *);
 
-	UNUSED(flags);
-	UNUSED(width);
-	UNUSED(precision);
-	UNUSED(size);
+    UNUSED(flags);
+    UNUSED(width);
+    UNUSED(precision);
+    UNUSED(size);
 
-	if (str == NULL)
-		return (write(1, "(null)", 6));
+    if (str == NULL)
+        return (write(1, "(null)", 6));
 
-	while (str[intt] != '\0')
-	{
-		if (is_printable(str[intt]))
-			buffer[intt + offset] = str[intt];
-		else
-			offset += append_hexa_code(str[intt], buffer, intt + offset);
+    while (str[s] != '\0')
+    {
+        if (is_printable(str[s]))
+            buffer[s + offset] = str[s];
+        else
+            offset += append_hexa_code(str[s], buffer, s + offset);
 
-		intt++;
-	}
+        s++;
+    }
 
-	buffer[intt + offset] = '\0';
+    buffer[s + offset] = '\0';
 
-	return (write(1, buffer, intt + offset));
+    return (write(1, buffer, s + offset));
 }
 
 /************************* PRINT REVERSE *************************/
 /**
- * print_reverse - Prints reverse string.
- * @types: Lista of arguments
- * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
- * @width: get width
- * @precision: Precision specification
- * @size: Size specifier
- * Return: Numbers of chars printed
+ * print_reverse - prints reverse string.
+ * @types:  list of arguments
+ * @buffer:  buffer array to handle print
+ * @width:  get width
+ * @precision:  precision specification
+ * @flags:  calculates active flags
+ * @size:  size specifier
+ * Return:  numbers of chars printed
  */
 int print_reverse(va_list types, char buffer[],
-	int flags, int width, int precision, int size)
+    int flags, int width, int precision, int size)
 {
-	char *str;
-	int intt, count = 0;
+    char *str;
+    int s, count = 0;
 
-	UNUSED(buffer);
-	UNUSED(flags);
-	UNUSED(width);
-	UNUSED(size);
+    UNUSED(buffer);
+    UNUSED(flags);
+    UNUSED(width);
+    UNUSED(size);
 
-	str = va_arg(types, char *);
+    str = va_arg(types, char *);
 
-	if (str == NULL)
-	{
-		UNUSED(precision);
+    if (str == NULL)
+    {
+        UNUSED(precision);
 
-		str = ")Null(";
-	}
-	for (intt = 0; str[intt]; intt++)
-		;
+        str = ")Null(";
+    }
 
-	for (intt = intt - 1; intt >= 0; intt--)
-	{
-		char z = str[intt];
+    for (s = 0; str[s]; s++)
+        ;
 
-		write(1, &z, 1);
-		count++;
-	}
-	return (count);
+    for (s = s - 1; s >= 0; s--)
+    {
+        char z = str[s];
+
+        write(1, &z, 1);
+        count++;
+    }
+
+    return (count);
 }
 
 /************************* PRINT A STRING IN ROT13 *************************/
 /**
- * print_rot13string - Print a string in rot13.
- * @types: Lista of arguments
- * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
- * @width: get width
- * @precision: Precision specification
- * @size: Size specifier
- * Return: Numbers of chars printed
+ * print_rot13string -  print a string in ROT13.
+ * @types:  list of arguments
+ * @buffer:  buffer array to handle print
+ * @precision:  precision specification
+ * @flags:  calculates active flags
+ * @size:  size specifier
+ * Return:  numbers of chars printed
  */
 int print_rot13string(va_list types, char buffer[],
-	int flags, int width, int precision, int size)
+    int flags, int width, int precision, int size)
 {
-	char x;
-	char *str;
-	unsigned int intt, j;
-	int count = 0;
-	char in[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	char out[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
+    char x;
+    char *str;
+    unsigned int s, j;
+    int count = 0;
+    char in[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    char out[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
 
-	str = va_arg(types, char *);
-	UNUSED(buffer);
-	UNUSED(flags);
-	UNUSED(width);
-	UNUSED(precision);
-	UNUSED(size);
+    str = va_arg(types, char *);
+    UNUSED(buffer);
+    UNUSED(flags);
+    UNUSED(width);
+    UNUSED(precision);
+    UNUSED(size);
 
-	if (str == NULL)
-		str = "(AHYY)";
-	for (intt = 0; str[intt]; intt++)
-	{
-		for (j = 0; in[j]; j++)
-		{
-			if (in[j] == str[intt])
-			{
-				x = out[j];
-				write(1, &x, 1);
-				count++;
-				break;
-			}
-		}
-		if (!in[j])
-		{
-			x = str[intt];
-			write(1, &x, 1);
-			count++;
-		}
-	}
-	return (count);
+    if (str == NULL)
+        str = "(AHYY)";
+
+    for (s = 0; str[s]; s++)
+    {
+        for (j = 0; in[j]; j++)
+        {
+            if (in[j] == str[s])
+            {
+                x = out[j];
+                write(1, &x, 1);
+                count++;
+                break;
+            }
+        }
+        if (!in[j])
+        {
+            x = str[s];
+            write(1, &x, 1);
+            count++;
+        }
+    }
+    return (count);
 }
