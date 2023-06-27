@@ -6,7 +6,7 @@
 *@format:  formatted string in which to print the arguments
 *@s:  list of arguments to be printed.
 *
-*Return:  size to cast the argument.
+*Return:  precision.
 */
 int get_precision(const char *format, int *s, va_list list)
 {
