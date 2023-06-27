@@ -1,18 +1,18 @@
 #include "main.h"
 
-void print_buffer(character buffer[], int *buff_ind);
+void print_buffer(char buffer[], int *buff_ind);
 
 /**
 * _printf - Printf function
-* Return: Printed characters.
-* @format: format.
+* Return: printed chars.
+* @format: Format.
 */
-int _printf(const character *format, ...)
+int _printf(const char *format, ...)
 {
-int i, printed = 0, printed_characters = 0;
+int i, printed = 0, printed_chars = 0;
 int flags, width, precision, size, buff_ind = 0;
 va_list list;
-character buffer[BUFF_SIZE];
+char buffer[BUFF_SIZE];
 
 if (format == NULL)
 return (-1);
@@ -27,7 +27,7 @@ buffer[buff_ind++] = format[i];
 if (buff_ind == BUFF_SIZE)
 print_buffer(buffer, &buff_ind);
 /* write(1, &format[i], 1);*/
-printed_characters++;
+printed_chars++;
 }
 else
 {
@@ -41,7 +41,7 @@ printed = handle_print(format, &i, list, buffer,
 flags, width, precision, size);
 if (printed == -1)
 return (-1);
-printed_characters += printed;
+printed_chars += printed;
 }
 }
 
@@ -49,13 +49,13 @@ print_buffer(buffer, &buff_ind);
 
 va_end(list);
 
-return (printed_characters);
+return (printed_chars);
 }
 
 /**
-* print_buffer - Prints the contents of the buffer if it exist
-* @buff_ind: Index at which to add next char, represents the length.
-* @buffer: Array of characters
+* print_buffer - prints the contents of the buffer if it exist
+* @buff_ind: index at which to add next char, represents the length.
+* @buffer: array of chars
 */
 void print_buffer(char buffer[], int *buff_ind)
 {
