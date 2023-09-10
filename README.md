@@ -1,6 +1,6 @@
 # 0x11. C - printf team project
 
-## Peer Group: Yassine Seif - Rawan hilali   
+## Peer Group: Seif - Rawan
 
 Group Project:
 
