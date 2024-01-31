@@ -4,7 +4,7 @@
  * get_size - Calculates the size to cast the argument
  * @format: Formatted string in which to print the arguments
  * @s: List of arguments to be printed.
- *
+ * Determines the size to cast the argument 
  * Return: size to cast the argument.
  */
 int get_size(const char *format, int *s)
